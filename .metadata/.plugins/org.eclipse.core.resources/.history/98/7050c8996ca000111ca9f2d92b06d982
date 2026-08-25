@@ -1,0 +1,19 @@
+// Users with properties
+CREATE (a:User {name:'Alice', age:25, city:'Hyderabad'})
+CREATE (b:User {name:'Bob', age:27, city:'Hyderabad'})
+CREATE (c:User {name:'Charlie', age:30, city:'Delhi'})
+CREATE (d:User {name:'David', age:28, city:'Mumbai'})
+CREATE (e:User {name:'Emma', age:26, city:'Chennai'})
+CREATE (f:User {name:'Frank', age:32, city:'Bangalore'})
+CREATE (g:User {name:'Grace', age:29, city:'Hyderabad'})
+
+// Friendships
+CREATE (a)-[:FRIEND]->(b)
+CREATE (b)-[:FRIEND]->(c)
+CREATE (c)-[:FRIEND]->(d)
+CREATE (d)-[:FRIEND]->(e)
+CREATE (e)-[:FRIEND]->(f)
+CREATE (f)-[:FRIEND]->(g)
+CREATE (g)-[:FRIEND]->(a)
+CREATE (b)-[:FRIEND]->(e)
+CREATE (c)-[:FRIEND]->(g)

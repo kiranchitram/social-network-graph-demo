@@ -1,0 +1,79 @@
+import { useState } from "react";
+
+function FriendsFinder() {
+  const [name, setName] = useState("");
+  const [friends, setFriends] = useState([]);
+  const [friendsOfFriends, setFriendsOfFriends] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const fetchFriends = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch(`http://localhost:8080/users/${name}/friends`);
+      if (!res.ok) throw new Error("Failed to fetch");
+      const data = await res.json();
+      setFriends(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchFriendsOfFriends = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch(`http://localhost:8080/users/${name}/friends-of-friends`);
+      if (!res.ok) throw new Error("Failed to fetch");
+      const data = await res.json();
+      setFriendsOfFriends(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="finder-container">
+      <h2>Find Friends</h2>
+      <input
+        className="input-box"
+        type="text"
+        placeholder="Enter username"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <div className="button-group">
+        <button className="btn" onClick={fetchFriends}>Search Friends</button>
+        <button className="btn secondary" onClick={fetchFriendsOfFriends}>Friends of Friends</button>
+      </div>
+
+      {loading && <p className="loading">Loading...</p>}
+      {error && <p className="error">{error}</p>}
+
+      <h3>Friends of {name}:</h3>
+      <ul>
+        {friends.length === 0 ? (
+          <li>No friends found</li>
+        ) : (
+          friends.map((f, idx) => <li key={idx}>{f.name}</li>)
+        )}
+      </ul>
+
+      <h3>Friends of Friends of {name}:</h3>
+      <ul>
+        {friendsOfFriends.length === 0 ? (
+          <li>No friends of friends found</li>
+        ) : (
+          friendsOfFriends.map((f, idx) => <li key={idx}>{f.name}</li>)
+        )}
+      </ul>
+    </div>
+  );
+}
+
+export default FriendsFinder;

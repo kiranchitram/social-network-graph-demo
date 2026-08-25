@@ -1,0 +1,12 @@
+package com.example.socialnetwork.repository;
+
+import com.example.socialnetwork.model.User;
+import org.springframework.data.neo4j.repository.Neo4jRepository;
+import org.springframework.data.neo4j.repository.query.Query;
+import java.util.List;
+
+public interface UserRepository extends Neo4jRepository<User, String> {
+
+    @Query("MATCH (u:User {name:$name})-[:FRIEND]->(f:User) RETURN f")
+    List<User> findFriendsByName(String name);
+}

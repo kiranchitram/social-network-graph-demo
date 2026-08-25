@@ -1,0 +1,5 @@
+CREATE (a:User {name:'Alice'})
+CREATE (b:User {name:'Bob'})
+CREATE (c:User {name:'Charlie'})
+CREATE (a)-[:FRIEND]->(b)
+CREATE (b)-[:FRIEND]->(c)

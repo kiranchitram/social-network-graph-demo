@@ -1,0 +1,154 @@
+import { useState } from "react";
+
+function FriendsFinder() {
+  const [name, setName] = useState("");
+  const [other, setOther] = useState(""); // for mutual friends
+  const [target, setTarget] = useState(""); // for shortest path
+  const [friends, setFriends] = useState([]);
+  const [friendsOfFriends, setFriendsOfFriends] = useState([]);
+  const [mutualFriends, setMutualFriends] = useState([]);
+  const [shortestPath, setShortestPath] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const fetchFriends = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch(`http://localhost:8080/users/${name}/friends`);
+      if (!res.ok) throw new Error("Failed to fetch");
+      const data = await res.json();
+      setFriends(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchFriendsOfFriends = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch(`http://localhost:8080/users/${name}/friends-of-friends`);
+      if (!res.ok) throw new Error("Failed to fetch");
+      const data = await res.json();
+      setFriendsOfFriends(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchMutualFriends = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch(`http://localhost:8080/users/${name}/mutual/${other}`);
+      if (!res.ok) throw new Error("Failed to fetch");
+      const data = await res.json();
+      setMutualFriends(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchShortestPath = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch(`http://localhost:8080/users/${name}/path/${target}`);
+      if (!res.ok) throw new Error("Failed to fetch");
+      const data = await res.json();
+      setShortestPath(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Helper to filter duplicates by name
+  const uniqueNames = (list) => [...new Set(list.map(f => f.name))];
+
+  return (
+    <div className="finder-container">
+      <h2>Find Friends</h2>
+      <input
+        className="input-box"
+        type="text"
+        placeholder="Enter username"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <div className="button-group">
+	  <button className="btn search" onClick={fetchFriends}>Search Friends</button>
+	  <button className="btn fof" onClick={fetchFriendsOfFriends}>Friends of Friends</button>
+      </div>
+
+      <h3>Mutual Friends</h3>
+      <input
+        className="input-box"
+        type="text"
+        placeholder="Enter other user"
+        value={other}
+        onChange={(e) => setOther(e.target.value)}
+      />
+      <button className="btn" onClick={fetchMutualFriends}>Find Mutual Friends</button>
+
+      <h3>Shortest Path</h3>
+      <input
+        className="input-box"
+        type="text"
+        placeholder="Enter target user"
+        value={target}
+        onChange={(e) => setTarget(e.target.value)}
+      />
+      <button className="btn secondary" onClick={fetchShortestPath}>Find Shortest Path</button>
+
+      {loading && <p className="loading">Loading...</p>}
+      {error && <p className="error">{error}</p>}
+
+      <h3>Friends of {name}:</h3>
+      <ul>
+        {uniqueNames(friends).length === 0 ? (
+          <li>No friends found</li>
+        ) : (
+          uniqueNames(friends).map((n, idx) => <li key={idx}>{n}</li>)
+        )}
+      </ul>
+
+      <h3>Friends of Friends of {name}:</h3>
+      <ul>
+        {uniqueNames(friendsOfFriends).length === 0 ? (
+          <li>No friends of friends found</li>
+        ) : (
+          uniqueNames(friendsOfFriends).map((n, idx) => <li key={idx}>{n}</li>)
+        )}
+      </ul>
+
+      <h3>Mutual Friends of {name} and {other}:</h3>
+      <ul>
+        {uniqueNames(mutualFriends).length === 0 ? (
+          <li>No mutual friends found</li>
+        ) : (
+          uniqueNames(mutualFriends).map((n, idx) => <li key={idx}>{n}</li>)
+        )}
+      </ul>
+
+      <h3>Shortest Path from {name} to {target}:</h3>
+      <ul>
+        {uniqueNames(shortestPath).length === 0 ? (
+          <li>No path found</li>
+        ) : (
+          uniqueNames(shortestPath).map((n, idx) => <li key={idx}>{n}</li>)
+        )}
+      </ul>
+    </div>
+  );
+}
+
+export default FriendsFinder;

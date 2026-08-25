@@ -1,0 +1,40 @@
+import  { useState } from "react";
+
+function FriendsFinder() {
+  const [name, setName] = useState("");
+  const [friends, setFriends] = useState([]);
+
+  const fetchFriends = async () => {
+    try {
+      const res = await fetch(`http://localhost:8080/users/${name}/friends`);
+      const data = await res.json();
+      setFriends(data);
+    } catch (err) {
+      console.error("Error fetching friends:", err);
+    }
+  };
+
+  return (
+    <div style={{ padding: "20px", fontFamily: "Arial" }}>
+      <h2>Find Friends</h2>
+      <input
+        type="text"
+        placeholder="Enter username"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <button onClick={fetchFriends}>Search</button>
+
+      <h3>Friends of {name}:</h3>
+      <ul>
+        {friends.length === 0 ? (
+          <li>No friends found</li>
+        ) : (
+          friends.map((f, idx) => <li key={idx}>{f.name}</li>)
+        )}
+      </ul>
+    </div>
+  );
+}
+
+export default FriendsFinder;

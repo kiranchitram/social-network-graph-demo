@@ -1,0 +1,25 @@
+package com.example.socialnetwork.repository;
+
+import com.example.socialnetwork.model.User;
+import org.springframework.data.neo4j.repository.Neo4jRepository;
+import org.springframework.data.neo4j.repository.query.Query;
+import java.util.List;
+
+public interface UserRepository extends Neo4jRepository<User, String> {
+
+    // Direct friends (unique)
+    @Query("MATCH (u:User {name:$name})-[:FRIEND]->(f:User) RETURN DISTINCT f")
+    List<User> findFriendsByName(String name);
+
+    // Friends of friends (unique)
+    @Query("MATCH (u:User {name:$name})-[:FRIEND]->()-[:FRIEND]->(fof:User) RETURN DISTINCT fof")
+    List<User> findFriendsOfFriends(String name);
+
+    // Mutual friends (unique)
+    @Query("MATCH (u:User {name:$name})-[:FRIEND]->(f:User)<-[:FRIEND]-(v:User {name:$other}) RETURN DISTINCT f")
+    List<User> findMutualFriends(String name, String other);
+
+    // Shortest path (unique nodes in path)
+    @Query("MATCH p=shortestPath((u:User {name:$name})-[:FRIEND*..5]-(v:User {name:$target})) RETURN DISTINCT nodes(p)")
+    List<User> findShortestPath(String name, String target);
+}

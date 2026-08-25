@@ -1,0 +1,92 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f9;
+}
+
+.app-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.app-title {
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.finder-container {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  width: 400px;
+  margin: 0 auto;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.input-box {
+  padding: 8px;
+  width: 80%;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.button-group {
+  margin: 10px 0;
+}
+
+.btn {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  margin: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #2980b9;
+}
+
+.btn.secondary {
+  background-color: #2ecc71;
+}
+
+.btn.secondary:hover {
+  background-color: #27ae60;
+}
+
+.loading {
+  color: #f39c12;
+}
+
+.error {
+  color: #e74c3c;
+}
+
+/* Default button */
+.btn {
+  background-color: #3498db; /* blue */
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  margin: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #2980b9;
+}
+
+/* Special style for Search Friends button */
+.btn.search {
+  background-color: #e67e22; /* orange */
+}
+
+.btn.search:hover {
+  background-color: #d35400; /* darker orange */
+}
+

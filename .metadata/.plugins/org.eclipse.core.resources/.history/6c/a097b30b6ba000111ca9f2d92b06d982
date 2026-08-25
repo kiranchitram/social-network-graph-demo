@@ -1,0 +1,17 @@
+CREATE (a:User {name:'Alice'})
+CREATE (b:User {name:'Bob'})
+CREATE (c:User {name:'Charlie'})
+CREATE (d:User {name:'David'})
+CREATE (e:User {name:'Emma'})
+CREATE (f:User {name:'Frank'})
+CREATE (g:User {name:'Grace'})
+
+
+CREATE (a)-[:FRIEND]->(b)
+CREATE (b)-[:FRIEND]->(c)
+CREATE (a)-[:FRIEND]->(d)
+CREATE (d)-[:FRIEND]->(e)
+CREATE (e)-[:FRIEND]->(f)
+CREATE (c)-[:FRIEND]->(g)
+CREATE (g)-[:FRIEND]->(a)
+

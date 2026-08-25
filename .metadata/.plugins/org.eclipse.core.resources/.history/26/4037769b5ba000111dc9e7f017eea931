@@ -1,0 +1,13 @@
+import React from "react";
+import FriendsFinder from "./components/FriendsFinder";
+
+function App() {
+  return (
+    <div>
+      <h1>Social Network Demo</h1>
+      <FriendsFinder />
+    </div>
+  );
+}
+
+export default App;
