@@ -10,12 +10,12 @@ function FriendsFinder() {
   const [shortestPath, setShortestPath] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const fetchFriends = async () => {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch("https://social-network-graph-demo.onrender.com/users/Alice/friends")
+        const res = await fetch(`${backendUrl}/users/Alice/friends`);
       if (!res.ok) throw new Error("Failed to fetch");
       const data = await res.json();
       setFriends(data);
