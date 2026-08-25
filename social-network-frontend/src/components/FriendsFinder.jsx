@@ -15,7 +15,7 @@ function FriendsFinder() {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch(`http://localhost:8080/users/${name}/friends`);
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/users/Alice/friends`);
       if (!res.ok) throw new Error("Failed to fetch");
       const data = await res.json();
       setFriends(data);
