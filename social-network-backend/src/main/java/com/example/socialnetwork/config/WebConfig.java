@@ -13,7 +13,7 @@ public class WebConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:5173") // React+Vite frontend
+                        .allowedOrigins("https://social-network-frontend-17qq.onrender.com") // React+Vite frontend
                         .allowedMethods("GET", "POST", "PUT", "DELETE");
             }
         };
