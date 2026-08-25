@@ -1,5 +1,4 @@
-
-# Use official OpenJDK image
+# Use official OpenJDK 21 image
 FROM openjdk:21-jdk
 
 # Set working directory
