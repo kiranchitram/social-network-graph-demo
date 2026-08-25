@@ -15,7 +15,7 @@ function FriendsFinder() {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch("https://social-network-backend.onrender.com/users/Alice/friends")
+      const res = await fetch("https://social-network-graph-demo.onrender.com/users/Alice/friends")
       if (!res.ok) throw new Error("Failed to fetch");
       const data = await res.json();
       setFriends(data);
