@@ -1,14 +1,12 @@
-# Use official Eclipse Temurin JDK 21 image
 FROM eclipse-temurin:21-jdk
 
-# Set working directory
 WORKDIR /app
-
-# Copy Maven wrapper and source code
 COPY . .
 
-# Build the application
+# Ensure mvnw is executable
+RUN chmod +x mvnw
+
+# Build with Maven Wrapper
 RUN ./mvnw clean package -DskipTests
 
-# Run the jar file
 CMD ["java", "-jar", "target/social-network-backend-0.0.1-SNAPSHOT.jar"]
