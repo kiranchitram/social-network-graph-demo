@@ -30,7 +30,7 @@ const backendUrl = import.meta.env.VITE_BACKEND_URL;
     setLoading(true);
     setError("");
     try {
-      const res = await fetch(`http://localhost:8080/users/${name}/friends-of-friends`);
+      const res = await fetch(`${backendUrl}/users/${name}/friends-of-friends`);
       if (!res.ok) throw new Error("Failed to fetch");
       const data = await res.json();
       setFriendsOfFriends(data);
@@ -45,7 +45,7 @@ const backendUrl = import.meta.env.VITE_BACKEND_URL;
     setLoading(true);
     setError("");
     try {
-      const res = await fetch(`http://localhost:8080/users/${name}/mutual/${other}`);
+      const res = await fetch(`${backendUrl}/users/${name}/mutual/${other}`);
       if (!res.ok) throw new Error("Failed to fetch");
       const data = await res.json();
       setMutualFriends(data);
@@ -60,7 +60,7 @@ const backendUrl = import.meta.env.VITE_BACKEND_URL;
     setLoading(true);
     setError("");
     try {
-      const res = await fetch(`http://localhost:8080/users/${name}/path/${target}`);
+      const res = await fetch(`${backendUrl}/users/${name}/path/${target}`);
       if (!res.ok) throw new Error("Failed to fetch");
       const data = await res.json();
       setShortestPath(data);
