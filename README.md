@@ -123,7 +123,7 @@ Clean UI with loading/error states
 Backend
 
 1.Clone repo:
-git clone https://github.com/<your-username>/social-network-demo.git
+git clone https://github.com/kiranchitram/social-network-demo.git
 
 2.Set environment variables (instead of committing secrets):
 export NEO4J_URI=bolt+s://<instance-id>.databases.cognodb.cloud
@@ -132,8 +132,8 @@ export NEO4J_PASSWORD=<your-password>
 
 3.Run backend:mvn spring-boot:run
 
-Backend runs on http://localhost:8080.
-
+Backend runs locally on http://localhost:8080.
+Backend runs on Live in https://social-network-graph-demo.onrender.com/users/Alice/friends
 
 ==============================================
 
@@ -149,7 +149,8 @@ npm install
 3.Run dev server:
 npm run dev
 
-Frontend runs on http://localhost:5173.
+Frontend locally runs on http://localhost:5173.
+Frontend Live on https://social-network-frontend-17qq.onrender.com
 
 ---
 
